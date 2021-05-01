@@ -1,17 +1,25 @@
 {
-  "name": "serverless-webpack-example",
-  "version": "1.0.0",
+  "name": "MyProject",
+  "version": "0.0.1",
+  "description": "Project with Serverless and TypeORM.",
   "scripts": {
     "start": "serverless offline start"
   },
   "license": "MIT",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.62",
+    "@types/node": "^8.0.29",
     "serverless": "^2.2.0",
     "serverless-offline": "^6.9.0",
     "serverless-webpack": "^5.3.5",
     "ts-loader": "^8.0.4",
+    "ts-node": "^3.3.0",
     "typescript": "^4.0.3",
     "webpack": "^4.44.2"
+  },
+  "dependencies": {
+    "typeorm": "0.2.32",
+    "reflect-metadata": "^0.1.10",
+    "sqlite3": "^4.0.3"
   }
 }
