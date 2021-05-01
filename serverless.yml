@@ -10,46 +10,46 @@ provider:
   stage: dev
   versionFunctions: false
 functions:
-  hello:
+  findManyPet:
     events:
       - http:
           method: GET
           path: pets
-    handler: ./src/api/handlers/getPetHandler.pets
+    handler: ./src/api/handlers/PetFindManyHandler.handler
     # cors: true # Setting cors to true assumes a default configuration 
 
-  getone:
-    events:
-      - http:
-          method: GET
-          path: pets/{id}
-    handler: ./src/api/handlers/getByIdPetHandler.pets
-    request:
-      parameters:
-        paths:
-          id: true
+  # getone:
+  #   events:
+  #     - http:
+  #         method: GET
+  #         path: pets/{id}
+  #   handler: ./src/api/handlers/getByIdPetHandler.pets
+  #   request:
+  #     parameters:
+  #       paths:
+  #         id: true
 
-  create: # function name
-    events:
-      - http:
-          method: POST # method post or get or put...
-          path: create # endpoint
-    handler: ./src/api/handlers/postHandler.create # property criada no src/handler.ts
-    statusCodes:
-              201:
-                pattern: '' # Default response method
-              409:
-                pattern: '.*"statusCode":409,.*' # JSON response
-                template: $input.path("$.errorMessage") # JSON return object
-                headers:
-                  Content-Type: "'application/json+hal'"
+  # create: # function name
+  #   events:
+  #     - http:
+  #         method: POST # method post or get or put...
+  #         path: create # endpoint
+  #   handler: ./src/api/handlers/postHandler.create # property criada no src/handler.ts
+  #   statusCodes:
+  #             201:
+  #               pattern: '' # Default response method
+  #             409:
+  #               pattern: '.*"statusCode":409,.*' # JSON response
+  #               template: $input.path("$.errorMessage") # JSON return object
+  #               headers:
+  #                 Content-Type: "'application/json+hal'"
 
-  replace: # function name
-    events:
-      - http:
-          method: PUT # method post or get or put...
-          path: put # endpoint
-    handler: ./src/api/handlers/putHandler.replace # property criada no src/handler.ts
+  # replace: # function name
+  #   events:
+  #     - http:
+  #         method: PUT # method post or get or put...
+  #         path: put # endpoint
+  #   handler: ./src/api/handlers/putHandler.replace # property criada no src/handler.ts
 
     # Authorization: if you want to configure the Authorizer with more options, you can turn the authorizer property into an object as shown in the following example:
 # functions:
