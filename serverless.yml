@@ -18,6 +18,13 @@ functions:
     handler: ./src/api/handlers/PetFindManyHandler.handler
     # cors: true # Setting cors to true assumes a default configuration 
 
+  findOneByIdPet:
+    events:
+      - http:
+          method: GET
+          path: pets/{id}
+    handler: ./src/api/handlers/PetFindOneByIdHandler.handler
+
   # getone:
   #   events:
   #     - http:

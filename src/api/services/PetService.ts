@@ -1,3 +1,4 @@
+import { Pet } from '../../models/Pet';
 import { PetRepository } from '../repositories/PetRepository';
 
 export class PetService {
@@ -11,11 +12,11 @@ export class PetService {
         console.log('Error, method not implemented');
     }
     
-    public findOneById(): any {
+    public findOneById(): Pet {
         return this.repository.findOneById();
     }
     
-    public findMany(): any {
+    public findMany(): Pet[] {
         return this.repository.findMany();
     }
     
