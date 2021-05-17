@@ -8,8 +8,8 @@ export class PetService {
         this.repository = new PetRepository();
     }
 
-    public insert(): any {
-        return this.repository.insert();
+    public insert(pet: Pet): any {
+        return this.repository.insert(pet);
     }
     
     public findOneById(): Pet {

@@ -8,8 +8,10 @@ const pet_entity_database = [
 ];
 
 export class PetRepository {
-    public insert(): any {
-        return new Pet(4, 'Kon', 2, species.CAT);
+    public insert(pet: Pet): Pet {
+        pet.id = 4;
+        pet_entity_database.push(pet);
+        return pet;
     }
     
     public findOneById(): Pet {
@@ -20,7 +22,7 @@ export class PetRepository {
         return pet_entity_database;
     }
     
-    public update(): any {
+    public update(): Pet {
         const pet = new Pet(2, 'Joca', 8, species.DOG);
         pet.name = 'Bob';
         pet.age = 9;
