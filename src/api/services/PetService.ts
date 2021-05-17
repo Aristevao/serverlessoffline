@@ -9,7 +9,7 @@ export class PetService {
     }
 
     public insert(): any {
-        return this.repository.insert();
+        console.log('Error, method not implemented');
     }
     
     public findOneById(): Pet {
@@ -21,10 +21,10 @@ export class PetService {
     }
     
     public update(): any {
-        return this.repository.update();
+        console.log('Error, method not implemented');
     }
     
     public remove(): any {
-        return this.repository.remove();
+        console.log('Error, method not implemented');
     }
 }
