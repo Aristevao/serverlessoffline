@@ -9,7 +9,7 @@ const pet_entity_database = [
 
 export class PetRepository {
     public insert(): any {
-        console.log('Error, method not implemented');
+        return new Pet(4, 'Kon', 2, species.CAT);
     }
     
     public findOneById(): Pet {
@@ -21,10 +21,13 @@ export class PetRepository {
     }
     
     public update(): any {
-        console.log('Error, method not implemented');
+        const pet = new Pet(2, 'Joca', 8, species.DOG);
+        pet.name = 'Bob';
+        pet.age = 9;
+        return(pet);
     }
     
     public remove(): any {
-        console.log('Error, method not implemented');
+        return pet_entity_database.pop();
     }
 }
