@@ -8,8 +8,8 @@ class PetDeleteHandler {
         this.service = new PetService();
     }
 
-    public execute() {
-        this.service.remove();
+    public execute(event: any) {
+        this.service.remove(event);
         const response = {
             statusCode: 204,
             headers: {
@@ -23,6 +23,6 @@ class PetDeleteHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetDeleteHandler().execute();
+    const response = new PetDeleteHandler().execute(event.pathParameters.id);
     callback(null, response);
 };

@@ -14,22 +14,24 @@ export class PetRepository {
         return pet;
     }
     
-    public findOneById(): Pet {
-        return pet_entity_database[0];
+    public findOneById(id: number): Pet {
+        return pet_entity_database[id];
     }
     
     public findMany(): Pet[] {
         return pet_entity_database;
     }
     
-    public update(): Pet {
-        const pet = new Pet(2, 'Joca', 8, species.DOG);
-        pet.name = 'Bob';
-        pet.age = 9;
-        return(pet);
+    public update(id: number, pet: Pet): any {
+        pet_entity_database[id] = pet;
+        return pet;
     }
     
-    public remove(): any {
-        return pet_entity_database.pop();
+    public remove(id: any): any {
+        for( var i = 0; i < pet_entity_database.length; i++){ 
+            if ( pet_entity_database[i] === id) { 
+                return pet_entity_database.splice(i, 1); 
+            }
+        }
     }
 }

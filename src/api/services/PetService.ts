@@ -12,19 +12,19 @@ export class PetService {
         return this.repository.insert(pet);
     }
     
-    public findOneById(): Pet {
-        return this.repository.findOneById();
+    public findOneById(id: number): Pet {
+        return this.repository.findOneById(id);
     }
     
     public findMany(): Pet[] {
         return this.repository.findMany();
     }
     
-    public update(): any {
-        return this.repository.update();
+    public update(id: number, pet: Pet): any {
+        return this.repository.update(id, pet);
     }
     
-    public remove(): any {
-        return this.repository.remove();
+    public remove(id: any): any {
+        return this.repository.remove(id);
     }
 }

@@ -8,8 +8,8 @@ class PetFindOneByIdHandler {
         this.service = new PetService();
     }
 
-    public execute() {
-        const pet = this.service.findOneById();
+    public execute(event: any) {
+        const pet = this.service.findOneById(event);
         const response = {
             statusCode: 200,
             headers: {
@@ -24,6 +24,6 @@ class PetFindOneByIdHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetFindOneByIdHandler().execute();
+    const response = new PetFindOneByIdHandler().execute(event.pathParameters.id);
     callback(null, response);
 };

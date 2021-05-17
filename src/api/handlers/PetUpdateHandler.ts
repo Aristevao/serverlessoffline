@@ -8,8 +8,8 @@ class PetUpdateHandler {
         this.service = new PetService();
     }
 
-    public execute() {
-        const pet = this.service.update();
+    public execute(id:number, event: any) {
+        const pet = this.service.update(id, event);
         const response = {
             statusCode: 200,
             headers: {
@@ -24,6 +24,6 @@ class PetUpdateHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetUpdateHandler().execute();
+    const response = new PetUpdateHandler().execute(event.pathParameters.id, event.body);
     callback(null, response);
 };

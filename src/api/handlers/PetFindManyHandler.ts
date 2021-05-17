@@ -10,6 +10,8 @@ class PetFindManyHandler {
 
     public execute() {
         const pets = this.service.findMany();
+        console.log();
+        
         const response = {
             statusCode: 200,
             headers: {
@@ -24,6 +26,7 @@ class PetFindManyHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
+    console.log(event)
     const response = new PetFindManyHandler().execute();
     callback(null, response);
 };
