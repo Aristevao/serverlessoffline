@@ -1,5 +1,4 @@
 import { Handler } from "aws-lambda";
-import { Pet } from "../../models/Pet";
 import { PetService } from "../services/PetService";
 
 class PetInsertHandler {
@@ -10,13 +9,13 @@ class PetInsertHandler {
     }
 
     public execute(event: any) {
-        const pets = this.service.insert(event.body);
+        const pets = this.service.insert(JSON.parse(event.body));
         const response = {
             statusCode: 201,
             headers: {
                 "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-                "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true,
             },
             body: JSON.stringify({ pets }),
         };
@@ -25,7 +24,7 @@ class PetInsertHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetInsertHandler().execute(event.body);
+    const response = new PetInsertHandler().execute(event);
 
     callback(null, response);
 };

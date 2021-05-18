@@ -10,14 +10,12 @@ class PetFindManyHandler {
 
     public execute() {
         const pets = this.service.findMany();
-        console.log();
-        
         const response = {
             statusCode: 200,
             headers: {
                 "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-                "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true,
             },
             body: JSON.stringify({ pets }),
         };
@@ -26,7 +24,6 @@ class PetFindManyHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    console.log(event)
     const response = new PetFindManyHandler().execute();
     callback(null, response);
 };

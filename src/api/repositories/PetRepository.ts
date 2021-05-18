@@ -9,7 +9,7 @@ const pet_entity_database = [
 
 export class PetRepository {
     public insert(pet: Pet): Pet {
-        pet.id = 4;
+        pet.id = pet_entity_database.length + 1;        
         pet_entity_database.push(pet);
         return pet;
     }

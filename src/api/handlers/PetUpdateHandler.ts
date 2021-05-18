@@ -8,22 +8,22 @@ class PetUpdateHandler {
         this.service = new PetService();
     }
 
-    public execute(id:number, event: any) {
-        const pet = this.service.update(id, event);
+    public execute(event: any) {
+        const pets = this.service.update(event.body, event.pathParameters.id);
         const response = {
             statusCode: 200,
             headers: {
                 "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-                "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true,
             },
-            body: JSON.stringify({ pet }),
+            body: JSON.stringify({ pets }),
         };
         return response;
     }
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetUpdateHandler().execute(event.pathParameters.id, event.body);
+    const response = new PetUpdateHandler().execute(event);
     callback(null, response);
 };
