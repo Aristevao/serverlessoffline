@@ -9,7 +9,7 @@ class PetUpdateHandler {
     }
 
     public execute(event: any) {
-        const pets = this.service.update(event.body, event.pathParameters.id);
+        const pets = this.service.update(event.pathParameters.id, JSON.parse(event.body));
         const response = {
             statusCode: 200,
             headers: {

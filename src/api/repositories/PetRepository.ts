@@ -24,6 +24,7 @@ export class PetRepository {
     
     public update(id: number, pet: Pet): any {
         pet_entity_database[id] = pet;
+        pet.id = id
         return pet;
     }
     
