@@ -16,7 +16,6 @@ functions:
           method: GET
           path: pets
     handler: ./src/api/handlers/PetFindManyHandler.handler
-    # cors: true # Setting cors to true assumes a default configuration 
 
   findOneByIdPet:
     events:
@@ -24,6 +23,52 @@ functions:
           method: GET
           path: pets/{id}
     handler: ./src/api/handlers/PetFindOneByIdHandler.handler
+
+  findManyTutor:
+    events:
+      - http:
+          method: GET
+          path: tutors
+    handler: ./src/api/handlers/TutorFindManyHandler.handler
+
+  findOneByIdTutor:
+    events:
+      - http:
+          method: GET
+          path: tutors/{id}
+    handler: ./src/api/handlers/TutorFindOneByIdHandler.handler
+
+  insertTutor:
+    events:
+      - http:
+          method: POST
+          path: tutors
+    handler: ./src/api/handlers/TutorInsertHandler.handler
+
+  updateTutor:
+    events:
+      - http:
+          method: PUT
+          path: tutors/{id}
+    handler: ./src/api/handlers/TutorUpdateHandler.handler
+
+  removeTutor:
+    events:
+      - http:
+          method: DELETE
+          path: tutors/{id}
+    handler: ./src/api/handlers/TutorRemoveHandler.handler
+
+
+
+
+
+
+
+
+
+
+
 
   # getone:
   #   events:
