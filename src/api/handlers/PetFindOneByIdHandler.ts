@@ -8,14 +8,14 @@ class PetFindOneByIdHandler {
         this.service = new PetService();
     }
 
-    public execute(event: any) { // receiving event object (from line 27)
-        const pets = this.service.findOneById(event.pathParameters.id); // getting event properties
+    public execute(event: any) {
+        const pets = this.service.findOneById(event.pathParameters.id);
         const response = {
             statusCode: 200,
             headers: {
                 "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-                "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true,
             },
             body: JSON.stringify({ pets }),
         };
@@ -24,6 +24,6 @@ class PetFindOneByIdHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetFindOneByIdHandler().execute(event); // event object as parameter, with all its properties
+    const response = new PetFindOneByIdHandler().execute(event);
     callback(null, response);
 };

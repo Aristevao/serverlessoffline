@@ -25,21 +25,21 @@ functions:
           path: pets/{id}
     handler: ./src/api/handlers/PetFindOneByIdHandler.handler
 
-  findDeletePet:
+  deletePet:
     events:
       - http:
           method: DELETE
           path: pets/{id}
     handler: ./src/api/handlers/PetDeleteHandler.handler
   
-  findUpdatePet:
+  updatePet:
     events:
       - http:
           method: PUT
           path: pets/{id}
     handler: ./src/api/handlers/PetUpdateHandler.handler
   
-  findInsertPet:
+  insertPet:
     events:
       - http:
           method: POST
