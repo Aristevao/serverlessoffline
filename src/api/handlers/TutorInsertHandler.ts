@@ -9,10 +9,10 @@ class TutorInsertHandler {
     }
 
     public execute(event: any) {
-        const tutor = this.service.insert(JSON.parse(event.body));        
+        const tutors = this.service.insert(JSON.parse(event.body));        
         const response = {
             statusCode: 201,
-            body: JSON.stringify(tutor),
+            body: JSON.stringify(tutors),
         };
         return response;
     }

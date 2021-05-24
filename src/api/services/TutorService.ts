@@ -8,7 +8,7 @@ export class TutorService {
         this.repository = new TutorRepository();
     }
 
-    public insert(tutor: Tutor): any {
+    public insert(tutor: Tutor): Tutor {
         return this.repository.insert(tutor);
     }
     
@@ -20,11 +20,11 @@ export class TutorService {
         return this.repository.findMany();
     }
 
-    public update(id: number, tutor: Tutor): any {
+    public update(id: number, tutor: Tutor): Tutor {
         return this.repository.update(id, tutor);
     }
 
-    public remove(id: number): any {
+    public remove(id: number): Tutor[] {
         return this.repository.remove(id);
     }
 }

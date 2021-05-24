@@ -9,7 +9,7 @@ class TutorUpdateHandler {
     }
 
     public execute(event: any) {
-        const tutor = this.service.update(JSON.parse(event.pathParameters.id), JSON.parse(event.body));
+        const tutor = this.service.update(event.pathParameters.id, JSON.parse(event.body));
         const response = {
             body: JSON.stringify(tutor),
         };

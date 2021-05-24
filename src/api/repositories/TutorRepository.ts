@@ -1,6 +1,6 @@
 import { Tutor } from '../../models/Tutor';
 
-const tutor_entity_database = [
+var tutor_entity_database = [
     new Tutor(1, 'Ana', 'Silva', 21),
     new Tutor(2, 'Beatriz', 'Santos', 22),
     new Tutor(3, 'Carlos', 'Oliveira', 23),
@@ -21,17 +21,16 @@ export class TutorRepository {
         return tutor_entity_database;
     }
 
-    public update(id: number, tutor: Tutor): any {
+    public update(id: number, tutor: Tutor): Tutor {
         tutor_entity_database[id] = tutor;
         tutor.id = id;
         return tutor;
     }
 
-    public remove(id: any): any {
-        for(var i = 0; i < tutor_entity_database.length; i++){
-            if(tutor_entity_database[i] === id) {
-                return tutor_entity_database.splice(i, 1);
-            }
-        }
+    public remove(id: number): Tutor[] {
+        tutor_entity_database = tutor_entity_database.filter(
+            (entry) => { if (entry.id != id) return entry }
+        );
+        return tutor_entity_database;
     }
 }
