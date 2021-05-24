@@ -1,7 +1,18 @@
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import "reflect-metadata";
+@Entity()
 export class Pet {
+    
+    @PrimaryGeneratedColumn()
     public id: number;
+
+    @Column()
     public name: string;
+
+    @Column()
     public age: number;
+
+    @Column()
     public specie: string;
 
     constructor (
