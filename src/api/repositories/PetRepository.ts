@@ -8,23 +8,31 @@ const pet_entity_database = [
 ];
 
 export class PetRepository {
-    public insert(): any {
-        console.log('Error, method not implemented');
+    public insert(pet: Pet): Pet {
+        pet.id = pet_entity_database.length + 1;        
+        pet_entity_database.push(pet);
+        return pet;
     }
     
-    public findOneById(): Pet {
-        return pet_entity_database[0];
+    public findOneById(id: number): Pet {
+        return pet_entity_database[id];
     }
     
     public findMany(): Pet[] {
         return pet_entity_database;
     }
     
-    public update(): any {
-        console.log('Error, method not implemented');
+    public update(id: number, pet: Pet): any {
+        pet_entity_database[id] = pet;
+        pet.id = id
+        return pet;
     }
     
-    public remove(): any {
-        console.log('Error, method not implemented');
+    public remove(id: any): any {
+        for( var i = 0; i < pet_entity_database.length; i++){ 
+            if ( pet_entity_database[i] === id) { 
+                return pet_entity_database.splice(i, 1); 
+            }
+        }
     }
 }

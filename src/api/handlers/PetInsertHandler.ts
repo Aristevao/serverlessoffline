@@ -1,7 +1,7 @@
 import { Handler } from "aws-lambda";
 import { PetService } from "../services/PetService";
 
-class PetFindOneByIdHandler {
+class PetInsertHandler {
     private service: PetService;
 
     constructor() {
@@ -9,9 +9,9 @@ class PetFindOneByIdHandler {
     }
 
     public execute(event: any) {
-        const pets = this.service.findOneById(event.pathParameters.id);
+        const pets = this.service.insert(JSON.parse(event.body));
         const response = {
-            statusCode: 200,
+            statusCode: 201,
             headers: {
                 "x-custom-header": "My Header Value",
                 "Access-Control-Allow-Origin": "*",
@@ -24,6 +24,7 @@ class PetFindOneByIdHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetFindOneByIdHandler().execute(event);
+    const response = new PetInsertHandler().execute(event);
+
     callback(null, response);
 };
