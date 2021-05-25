@@ -8,23 +8,23 @@ export class PetService {
         this.repository = new PetRepository();
     }
 
-    public insert(): any {
-        console.log('Error, method not implemented');
+    public insert(pet: Pet): any {
+        return this.repository.insert(pet);
     }
     
-    public findOneById(): Pet {
-        return this.repository.findOneById();
+    public findOneById(id: number): Pet {
+        return this.repository.findOneById(id);
     }
     
     public findMany(): Pet[] {
         return this.repository.findMany();
     }
     
-    public update(): any {
-        console.log('Error, method not implemented');
+    public update(id: number, pet: Pet): any {
+        return this.repository.update(id, pet);
     }
     
-    public remove(): any {
-        console.log('Error, method not implemented');
+    public remove(id: any): any {
+        return this.repository.remove(id);
     }
 }
