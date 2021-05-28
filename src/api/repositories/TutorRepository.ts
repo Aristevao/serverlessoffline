@@ -1,6 +1,6 @@
 import { Tutor } from '../../models/Tutor';
 
-var tutor_entity_database = [
+let tutor_entity_database = [
     new Tutor(1, 'Ana', 'Silva', 21),
     new Tutor(2, 'Beatriz', 'Santos', 22),
     new Tutor(3, 'Carlos', 'Oliveira', 23),
