@@ -1,7 +1,7 @@
 import { Handler } from "aws-lambda";
 import { PetService } from "../services/PetService";
 
-class PetFindOneByIdHandler {
+class PetUpdateHandler {
     private service: PetService;
 
     constructor() {
@@ -9,7 +9,7 @@ class PetFindOneByIdHandler {
     }
 
     public execute(event: any) {
-        const pets = this.service.findOneById(event.pathParameters.id);
+        const pets = this.service.update(event.pathParameters.id, JSON.parse(event.body));
         const response = {
             statusCode: 200,
             headers: {
@@ -24,6 +24,6 @@ class PetFindOneByIdHandler {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetFindOneByIdHandler().execute(event);
+    const response = new PetUpdateHandler().execute(event);
     callback(null, response);
 };
