@@ -1,30 +1,33 @@
+import { Connection } from 'typeorm';
 import { Tutor } from '../../models/Tutor';
 import { TutorRepository } from '../repositories/TutorRepository';
 
 export class TutorService {
     private repository: TutorRepository;
 
-    constructor() {
-        this.repository = new TutorRepository();
+    constructor(connection: Connection) {
+        this.repository = connection.getCustomRepository(TutorRepository);
     }
 
-    public insert(tutor: Tutor): Tutor {
-        return this.repository.insert(tutor);
+    public async insert(tutor: Tutor): Promise<Tutor> {
+        return this.repository.save(tutor);
     }
     
-    public findOneById(id: number): Tutor {
-        return this.repository.findOneById(id);
+    public async findOneById(id: number): Promise<Tutor | undefined> {
+        return await this.repository.findOne(id);
     }
 
-    public findMany(): Tutor[] {
-        return this.repository.findMany();
+    public async findMany(): Promise<Tutor[]> {
+        return await this.repository.find();
     }
 
-    public update(id: number, tutor: Tutor): Tutor {
-        return this.repository.update(id, tutor);
+    public async update(id: number, tutor: Tutor): Promise<Tutor> {
+        tutor.id = id;
+        return await this.repository.save(tutor);
     }
 
-    public remove(id: number): Tutor[] {
-        return this.repository.remove(id);
+    public async remove(id: any): Promise<void> {
+        await this.repository.remove(id);
+        return;
     }
 }
