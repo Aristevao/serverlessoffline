@@ -1,30 +1,33 @@
+import { Connection } from 'typeorm';
 import { Pet } from '../../models/Pet';
 import { PetRepository } from '../repositories/PetRepository';
 
 export class PetService {
     private repository: PetRepository;
 
-    constructor() {
-        this.repository = new PetRepository();
+    constructor(connection: Connection) {
+        this.repository = connection.getCustomRepository(PetRepository);
     }
 
-    public insert(pet: Pet): any {
-        return this.repository.insert(pet);
+    public async insert(pet: Pet): Promise<Pet> {
+        return this.repository.save(pet);
     }
     
-    public findOneById(id: number): Pet {
-        return this.repository.findOneById(id);
+    public async findOneById(id: number): Promise<Pet | undefined> {
+        return await this.repository.findOne(id);
     }
     
-    public findMany(): Pet[] {
-        return this.repository.findMany();
+    public async findMany(): Promise<Pet[]> {
+        return await this.repository.find();
     }
     
-    public update(id: number, pet: Pet): any {
-        return this.repository.update(id, pet);
+    public async update(id: number, pet: Pet): Promise<Pet> {
+        pet.id = id;
+        return await this.repository.save(pet);
     }
     
-    public remove(id: any): any {
-        return this.repository.remove(id);
+    public async remove(id: any): Promise<void> {
+        await this.repository.remove(id);
+        return;
     }
 }
