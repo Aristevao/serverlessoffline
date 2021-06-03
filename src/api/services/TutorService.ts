@@ -10,7 +10,7 @@ export class TutorService {
     }
 
     public async insert(tutor: Tutor): Promise<Tutor> {
-        return this.repository.save(tutor);
+        return await this.repository.save(tutor);
     }
     
     public async findOneById(id: number): Promise<Tutor | undefined> {
