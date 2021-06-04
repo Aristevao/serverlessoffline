@@ -10,7 +10,7 @@ export class PetService {
     }
 
     public async insert(pet: Pet): Promise<Pet> {
-        return this.repository.save(pet);
+        return await this.repository.save(pet);
     }
     
     public async findOneById(id: number): Promise<Pet | undefined> {
