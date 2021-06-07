@@ -1,6 +1,6 @@
 import { ProxyResult } from "aws-lambda";
 
-export default class ProxyResultBuilder {
+export class ProxyResultBuilder {
 
     protected response: Partial<ProxyResult> = {};
 
