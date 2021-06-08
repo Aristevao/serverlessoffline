@@ -1,20 +1,17 @@
-import { Handler } from "aws-lambda";
+import { Handler, ProxyResult } from "aws-lambda";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { TutorService } from '../services/TutorService';
 
 class TutorInsertHandler {
-    private service: TutorService;
+    private tutorService: TutorService;
 
     constructor() {
-        this.service = new TutorService();
+        this.tutorService = new TutorService();
     }
 
-    public execute(event: any) {
-        const tutors = this.service.insert(JSON.parse(event.body));        
-        const response = {
-            statusCode: 201,
-            body: JSON.stringify(tutors),
-        };
-        return response;
+    public execute(event: any): ProxyResult {
+        const response = this.tutorService.insert(JSON.parse(event.body));        
+        return new ProxyResultBuilder().status(201).body(response).build();
     }
 }
 

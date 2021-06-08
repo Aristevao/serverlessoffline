@@ -1,19 +1,16 @@
-import { Handler } from 'aws-lambda';
+import { Handler, ProxyResult } from 'aws-lambda';
+import { ProxyResultBuilder } from '../core/ProxyResultBuilder';
 import { TutorService } from '../services/TutorService';
-
 class TutorFindOneByIdHandler {
-    private service: TutorService;
+    private tutorService: TutorService;
 
     constructor(){
-        this.service = new TutorService();
+        this.tutorService = new TutorService();
     }
 
-    public execute(event: any) {
-        const tutor = this.service.findOneById(event.pathParameters.id)
-        const response = {
-            body: JSON.stringify(tutor),
-        };
-        return response;
+    public execute(event: any): ProxyResult {
+        const response = this.tutorService.findOneById(event.pathParameters.id)
+        return new ProxyResultBuilder().status(200).body(response).build();
     }
 }
 
