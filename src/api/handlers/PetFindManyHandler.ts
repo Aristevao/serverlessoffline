@@ -1,11 +1,12 @@
-import { Handler } from "aws-lambda";
+import { APIGatewayEvent, Handler } from "aws-lambda";
+import { DatabaseServerlessHandler } from "../core/DatabaseServerlessHandler";
 import { PetService } from "../services/PetService";
 
-class PetFindManyHandler {
-    private service: PetService;
+class PetFindManyHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
+    private service: PetService | undefined;
 
-    constructor() {
-        this.service = new PetService();
+    initializeDependencies(): void {
+        this.service = new PetService(this.connection);
     }
 
     public execute() {

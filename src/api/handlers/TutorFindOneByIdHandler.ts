@@ -1,11 +1,12 @@
-import { Handler } from 'aws-lambda';
+import { APIGatewayEvent, Handler } from 'aws-lambda';
+import { DatabaseServerlessHandler } from '../core/DatabaseServerlessHandler';
 import { TutorService } from '../services/TutorService';
 
-class TutorFindOneByIdHandler {
-    private service: TutorService;
+class TutorFindOneByIdHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
+    private service: TutorService | undefined;
 
-    constructor(){
-        this.service = new TutorService();
+    initializeDependencies(){
+        this.service = new TutorService(this.connection);
     }
 
     public execute(event: any) {
