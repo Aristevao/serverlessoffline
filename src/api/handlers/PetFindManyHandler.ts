@@ -5,7 +5,7 @@ import { PetService } from "../services/PetService";
 class PetFindManyHandler {
     private petService: PetService;
 
-    public initializeDependencies(): void {
+    constructor() {
         this.petService = new PetService();
     }
 
