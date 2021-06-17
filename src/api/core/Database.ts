@@ -1,15 +1,9 @@
 import { createConnection, Connection } from 'typeorm';
 import "reflect-metadata";
 
-class Database {
+export class Database {
    
-    public connection: Connection
-
-    constructor(
-        connection: Connection
-    ) {
-        this.connection = connection
-    }
+    public connection: Connection | undefined
 
     public async connect(): Promise<void> {
         this.connection = await createConnection({
