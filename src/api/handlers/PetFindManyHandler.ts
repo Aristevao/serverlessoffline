@@ -1,4 +1,4 @@
-import { APIGatewayEvent, Handler } from "aws-lambda";
+import { APIGatewayEvent, Handler, ProxyResult } from "aws-lambda";
 import { DatabaseServerlessHandler } from "../core/DatabaseServerlessHandler";
 import { PetService } from "../services/PetService";
 
@@ -9,7 +9,7 @@ class PetFindManyHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
         this.service = new PetService(this.connection);
     }
 
-    public execute() {
+    public onHandleEvent(): Promise<ProxyResult> {
         const pets = this.service.findMany();
         const response = {
             statusCode: 200,
@@ -25,6 +25,6 @@ class PetFindManyHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetFindManyHandler().execute();
+    const response = new PetFindManyHandler().execute(event);
     callback(null, response);
 };
