@@ -1,19 +1,17 @@
-import { Handler } from "aws-lambda";
+import { Handler, ProxyResult } from "aws-lambda";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { TutorService } from "../services/TutorService";
 
 class TutorRemoveHandler {
-    private service: TutorService;
+    private tutorService: TutorService;
 
     constructor(){
-        this.service = new TutorService();
+        this.tutorService = new TutorService();
     }
 
-    public execute(event: any) {
-        this.service.remove(event.pathParameters.id);
-        const response = {
-            statusCode: 204
-        };
-        return response;
+    public execute(event: any): ProxyResult {
+        this.tutorService.remove(event.pathParameters.id);
+        return new ProxyResultBuilder().status(204).build();
     }
 }
 

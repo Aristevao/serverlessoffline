@@ -1,29 +1,21 @@
-import { Handler } from "aws-lambda";
+import { Handler, ProxyResult } from "aws-lambda";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { PetService } from "../services/PetService";
 
 class PetFindManyHandler {
-    private service: PetService;
+    private petService: PetService;
 
     constructor() {
-        this.service = new PetService();
+        this.petService = new PetService();
     }
 
-    public execute() {
-        const pets = this.service.findMany();
-        const response = {
-            statusCode: 200,
-            headers: {
-                "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": true,
-            },
-            body: JSON.stringify({ pets }),
-        };
-        return response;
+    public execute(): ProxyResult {
+        const response = this.petService.findMany();
+        return new ProxyResultBuilder().status(200).body(response).build();
     }
 }
 
 export const handler: Handler = async (event, context, callback) => {
     const response = new PetFindManyHandler().execute();
     callback(null, response);
-};
+}

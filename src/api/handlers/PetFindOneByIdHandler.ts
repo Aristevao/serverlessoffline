@@ -1,25 +1,17 @@
-import { Handler } from "aws-lambda";
+import { Handler, ProxyResult } from "aws-lambda";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { PetService } from "../services/PetService";
 
 class PetFindOneByIdHandler {
-    private service: PetService;
+    private petService: PetService;
 
     constructor() {
-        this.service = new PetService();
+        this.petService = new PetService();
     }
 
-    public execute(event: any) {
-        const pets = this.service.findOneById(event.pathParameters.id);
-        const response = {
-            statusCode: 200,
-            headers: {
-                "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": true,
-            },
-            body: JSON.stringify({ pets }),
-        };
-        return response;
+    public execute(event: any): ProxyResult {
+        const response = this.petService.findOneById(event.pathParameters.id);
+        return new ProxyResultBuilder().status(200).body(response).build();
     }
 }
 
