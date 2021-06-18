@@ -1,20 +1,18 @@
-import { APIGatewayEvent, Handler } from "aws-lambda";
+import { APIGatewayEvent, Handler, ProxyResult } from "aws-lambda";
 import { DatabaseServerlessHandler } from "../core/DatabaseServerlessHandler";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { TutorService } from "../services/TutorService";
 
 class TutorRemoveHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
-    private service: TutorService | undefined;
+    private tutorService: TutorService | undefined;
 
-    initializeDependencies(){
-        this.service = new TutorService(this.connection);
+    initializeDependencies(): void {
+        this.tutorService = new TutorService(this.connection);
     }
 
-    public execute(event: any) {
-        this.service.remove(event.pathParameters.id);
-        const response = {
-            statusCode: 204
-        };
-        return response;
+    public async onHandleEvent(event: any): Promise<ProxyResult> {
+        this.tutorService.remove(event.pathParameters.id);
+        return new ProxyResultBuilder().status(204).build();
     }
 }
 

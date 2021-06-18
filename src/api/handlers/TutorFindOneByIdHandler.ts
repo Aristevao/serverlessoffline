@@ -1,20 +1,18 @@
-import { APIGatewayEvent, Handler } from 'aws-lambda';
+import { APIGatewayEvent, Handler, ProxyResult } from 'aws-lambda';
 import { DatabaseServerlessHandler } from '../core/DatabaseServerlessHandler';
+import { ProxyResultBuilder } from '../core/ProxyResultBuilder';
 import { TutorService } from '../services/TutorService';
 
 class TutorFindOneByIdHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
-    private service: TutorService | undefined;
+    private tutorService: TutorService | undefined;
 
-    initializeDependencies(){
-        this.service = new TutorService(this.connection);
+    initializeDependencies(): void {
+        this.tutorService = new TutorService(this.connection);
     }
 
-    public execute(event: any) {
-        const tutor = this.service.findOneById(event.pathParameters.id)
-        const response = {
-            body: JSON.stringify(tutor),
-        };
-        return response;
+    public async onHandleEvent(event: any): Promise<ProxyResult> {
+        const response = this.tutorService.findOneById(event.pathParameters.id)
+        return new ProxyResultBuilder().status(200).body(response).build();
     }
 }
 

@@ -1,25 +1,18 @@
-import { APIGatewayEvent, Handler } from "aws-lambda";
+import { APIGatewayEvent, Handler, ProxyResult } from "aws-lambda";
 import { DatabaseServerlessHandler } from "../core/DatabaseServerlessHandler";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { PetService } from "../services/PetService";
 
 class PetDeleteHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
-    private service: PetService | undefined;
+    private petService: PetService | undefined;
 
-    initializeDependencies() {
-        this.service = new PetService(this.connection);
+    initializeDependencies(): void {
+        this.petService = new PetService(this.connection);
     }
 
-    public execute(event: any) {
-        this.service.remove(event.pathParameters.id);
-        const response = {
-            statusCode: 204,
-            headers: {
-                "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": true,
-            },
-        };
-        return response;
+    public async onHandleEvent(event: APIGatewayEvent): Promise<ProxyResult> {
+        this.petService.remove(event.pathParameters.id);
+        return new ProxyResultBuilder().status(204).build();
     }
 }
 

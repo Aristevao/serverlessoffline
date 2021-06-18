@@ -1,26 +1,18 @@
-import { APIGatewayEvent, Handler } from "aws-lambda";
+import { APIGatewayEvent, Handler, ProxyResult } from "aws-lambda";
 import { DatabaseServerlessHandler } from "../core/DatabaseServerlessHandler";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { PetService } from "../services/PetService";
 
 class PetInsertHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
-    private service: PetService | undefined;
+    private petService: PetService | undefined;
 
-    initializeDependencies() {
-        this.service = new PetService(this.connection);
+    initializeDependencies(): void {
+        this.petService = new PetService(this.connection);
     }
 
-    public execute(event: any) {
-        const pets = this.service.insert(JSON.parse(event.body));
-        const response = {
-            statusCode: 201,
-            headers: {
-                "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": true,
-            },
-            body: JSON.stringify({ pets }),
-        };
-        return response;
+    public async onHandleEvent(event: APIGatewayEvent): Promise<ProxyResult> {
+        const response = this.petService.insert(JSON.parse(event.body));
+        return new ProxyResultBuilder().status(201).body(response).build();
     }
 }
 
