@@ -1,24 +1,17 @@
-import { Handler } from "aws-lambda";
+import { Handler, ProxyResult } from "aws-lambda";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { PetService } from "../services/PetService";
 
 class PetDeleteHandler {
-    private service: PetService;
+    private petService: PetService;
 
     constructor() {
-        this.service = new PetService();
+        this.petService = new PetService();
     }
 
-    public execute(event: any) {
-        this.service.remove(event.pathParameters.id);
-        const response = {
-            statusCode: 204,
-            headers: {
-                "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": true,
-            },
-        };
-        return response;
+    public execute(event: any): ProxyResult {
+        this.petService.remove(event.pathParameters.id);
+        return new ProxyResultBuilder().status(204).build();
     }
 }
 

@@ -1,19 +1,17 @@
-import { Handler } from 'aws-lambda';
+import { Handler, ProxyResult } from 'aws-lambda';
+import { ProxyResultBuilder } from '../core/ProxyResultBuilder';
 import { TutorService } from '../services/TutorService';
 
 class TutorFindManyHandler {
-    private service: TutorService;
+    private tutorService: TutorService;
 
     constructor() {
-        this.service = new TutorService();
+        this.tutorService = new TutorService();
     }
 
-    public execute() {
-        const tutor = this.service.findMany();
-        const response = {
-            body: JSON.stringify(tutor),
-        };
-        return response;
+    public execute(): ProxyResult {
+        const response = this.tutorService.findMany();
+        return new ProxyResultBuilder().status(200).body(response).build();
     }
 }
 

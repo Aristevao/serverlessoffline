@@ -1,25 +1,17 @@
-import { Handler } from "aws-lambda";
+import { Handler, ProxyResult } from "aws-lambda";
+import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { PetService } from "../services/PetService";
 
 class PetInsertHandler {
-    private service: PetService;
+    private petService: PetService;
 
     constructor() {
-        this.service = new PetService();
+        this.petService = new PetService();
     }
 
-    public execute(event: any) {
-        const pets = this.service.insert(JSON.parse(event.body));
-        const response = {
-            statusCode: 201,
-            headers: {
-                "x-custom-header": "My Header Value",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": true,
-            },
-            body: JSON.stringify({ pets }),
-        };
-        return response;
+    public execute(event: any): ProxyResult {
+        const response = this.petService.insert(JSON.parse(event.body));
+        return new ProxyResultBuilder().status(201).body(response).build();
     }
 }
 
