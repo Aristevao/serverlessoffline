@@ -17,7 +17,7 @@ class PetInsertHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetInsertHandler().execute(event);
+    const response = await new PetInsertHandler().execute(event);
 
     callback(null, response);
 };

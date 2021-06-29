@@ -17,6 +17,6 @@ class TutorFindManyHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new TutorFindManyHandler().execute(event);
+    const response = await new TutorFindManyHandler().execute(event);
     callback(null, response);
 }

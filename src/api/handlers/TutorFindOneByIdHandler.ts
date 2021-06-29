@@ -16,7 +16,7 @@ class TutorFindOneByIdHandler extends DatabaseServerlessHandler<APIGatewayEvent>
     }
 }
 
-export const handler: Handler = (event, context, callback) => {
-    const response = new TutorFindOneByIdHandler().execute(event);
+export const handler: Handler = async (event, context, callback) => {
+    const response = await new TutorFindOneByIdHandler().execute(event);
     callback(null, response);
 }

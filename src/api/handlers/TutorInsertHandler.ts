@@ -16,7 +16,7 @@ class TutorInsertHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
     }
 }
 
-export const handler: Handler = (event, context, callback) => {
-    const response = new TutorInsertHandler().execute(event);
+export const handler: Handler = async (event, context, callback) => {
+    const response = await new TutorInsertHandler().execute(event);
     callback(null, response);
 }

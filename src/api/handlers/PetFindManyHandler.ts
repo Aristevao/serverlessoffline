@@ -17,6 +17,6 @@ class PetFindManyHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetFindManyHandler().execute(event);
+    const response = await new PetFindManyHandler().execute(event);
     callback(null, response);
 }

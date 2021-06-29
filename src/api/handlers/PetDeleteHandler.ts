@@ -17,6 +17,6 @@ class PetDeleteHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
 }
 
 export const handler: Handler = async (event, context, callback) => {
-    const response = new PetDeleteHandler().execute(event);
+    const response = await new PetDeleteHandler().execute(event);
     callback(null, response);
 };
