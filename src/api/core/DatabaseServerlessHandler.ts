@@ -12,7 +12,7 @@ export abstract class DatabaseServerlessHandler<T> {
     protected abstract onHandleEvent(event?: T): Promise<ProxyResult>;
 
     public async execute(event: T): Promise<ProxyResult> {
-        this.initializeDatabase();
+        await this.initializeDatabase();
         this.initializeDependencies(event);
         const result = await this.onHandleEvent(event);
         return result;
