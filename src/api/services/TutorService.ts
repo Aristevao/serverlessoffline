@@ -26,8 +26,8 @@ export class TutorService {
         return await this.repository.save(tutor);
     }
 
-    public async remove(id: any): Promise<void> {
-        await this.repository.remove(id);
+    public async delete(id: any): Promise<void> {
+        await this.repository.delete(id);
         return;
     }
 }

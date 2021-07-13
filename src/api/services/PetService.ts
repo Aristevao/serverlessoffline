@@ -26,8 +26,8 @@ export class PetService {
         return await this.repository.save(pet);
     }
     
-    public async remove(id: any): Promise<void> {
-        await this.repository.remove(id);
+    public async delete(id: any): Promise<void> {
+        await this.repository.delete(id);
         return;
     }
 }

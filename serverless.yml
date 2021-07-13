@@ -52,12 +52,12 @@ functions:
           path: tutors/{id}
     handler: ./src/api/handlers/TutorUpdateHandler.handler
 
-  removeTutor:
+  deleteTutor:
     events:
       - http:
           method: DELETE
           path: tutors/{id}
-    handler: ./src/api/handlers/TutorRemoveHandler.handler
+    handler: ./src/api/handlers/TutorDeleteHandler.handler
     
   deletePet:
     events:
