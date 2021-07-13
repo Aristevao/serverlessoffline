@@ -11,7 +11,7 @@ class TutorFindManyHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
     }
 
     public async onHandleEvent(): Promise<ProxyResult> {
-        const response = this.tutorService.findMany();
+        const response = await this.tutorService.findMany();
         return new ProxyResultBuilder().status(200).body(response).build();
     }
 }

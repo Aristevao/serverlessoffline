@@ -11,7 +11,7 @@ class PetFindOneByIdHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
     }
 
     public async onHandleEvent(event: any): Promise<ProxyResult> {
-        const response = this.petService.findOneById(event.pathParameters.id);
+        const response = await this.petService.findOneById(event.pathParameters.id);
         return new ProxyResultBuilder().status(200).body(response).build();
     }
 }

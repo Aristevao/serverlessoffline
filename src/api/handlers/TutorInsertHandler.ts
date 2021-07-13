@@ -11,7 +11,7 @@ class TutorInsertHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
     }
 
     public async onHandleEvent(event: APIGatewayEvent): Promise<ProxyResult> {
-        const response = this.tutorService.insert(JSON.parse(event.body));        
+        const response = await this.tutorService.insert(JSON.parse(event.body));        
         return new ProxyResultBuilder().status(201).body(response).build();
     }
 }

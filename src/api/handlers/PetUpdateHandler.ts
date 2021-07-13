@@ -11,7 +11,7 @@ class PetUpdateHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
     }
 
     public async onHandleEvent(event: any): Promise<ProxyResult> {
-        const response = this.petService.update(event.pathParameters.id, JSON.parse(event.body));
+        const response = await this.petService.update(parseInt((event.pathParameters.id), 10), JSON.parse(event.body));
         return new ProxyResultBuilder().status(200).body(response).build();
     }
 }

@@ -11,13 +11,12 @@ class PetInsertHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
     }
 
     public async onHandleEvent(event: APIGatewayEvent): Promise<ProxyResult> {
-        const response = this.petService.insert(JSON.parse(event.body));
+        const response = await this.petService.insert(JSON.parse(event.body));
         return new ProxyResultBuilder().status(201).body(response).build();
     }
 }
 
 export const handler: Handler = async (event, context, callback) => {
     const response = await new PetInsertHandler().execute(event);
-
     callback(null, response);
 };

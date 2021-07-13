@@ -11,7 +11,7 @@ class TutorFindOneByIdHandler extends DatabaseServerlessHandler<APIGatewayEvent>
     }
 
     public async onHandleEvent(event: any): Promise<ProxyResult> {
-        const response = this.tutorService.findOneById(event.pathParameters.id)
+        const response = await this.tutorService.findOneById(event.pathParameters.id)
         return new ProxyResultBuilder().status(200).body(response).build();
     }
 }

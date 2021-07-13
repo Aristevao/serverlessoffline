@@ -11,7 +11,7 @@ class PetDeleteHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
     }
 
     public async onHandleEvent(event: APIGatewayEvent): Promise<ProxyResult> {
-        this.petService.remove(event.pathParameters.id);
+        await this.petService.delete(event.pathParameters.id);
         return new ProxyResultBuilder().status(204).build();
     }
 }
