@@ -1,21 +1,22 @@
-import { Handler, ProxyResult } from "aws-lambda";
+import { APIGatewayEvent, Handler, ProxyResult } from "aws-lambda";
+import { DatabaseServerlessHandler } from "../core/DatabaseServerlessHandler";
 import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { TutorService } from '../services/TutorService';
 
-class TutorInsertHandler {
-    private tutorService: TutorService;
+class TutorInsertHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
+    private tutorService: TutorService | undefined;
 
-    constructor() {
-        this.tutorService = new TutorService();
+    initializeDependencies(): void {
+        this.tutorService = new TutorService(this.connection);
     }
 
-    public execute(event: any): ProxyResult {
-        const response = this.tutorService.insert(JSON.parse(event.body));        
+    public async onHandleEvent(event: APIGatewayEvent): Promise<ProxyResult> {
+        const response = await this.tutorService.insert(JSON.parse(event.body));        
         return new ProxyResultBuilder().status(201).body(response).build();
     }
 }
 
-export const handler: Handler = (event, context, callback) => {
-    const response = new TutorInsertHandler().execute(event);
+export const handler: Handler = async (event, context, callback) => {
+    const response = await new TutorInsertHandler().execute(event);
     callback(null, response);
 }
