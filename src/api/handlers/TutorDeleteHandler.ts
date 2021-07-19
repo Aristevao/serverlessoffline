@@ -3,20 +3,20 @@ import { DatabaseServerlessHandler } from "../core/DatabaseServerlessHandler";
 import { ProxyResultBuilder } from "../core/ProxyResultBuilder";
 import { TutorService } from "../services/TutorService";
 
-class TutorUpdateHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
+class TutorRemoveHandler extends DatabaseServerlessHandler<APIGatewayEvent> {
     private tutorService: TutorService | undefined;
-    
+
     initializeDependencies(): void {
         this.tutorService = new TutorService(this.connection);
     }
 
     public async onHandleEvent(event: any): Promise<ProxyResult> {
-        const response = await this.tutorService.update(parseInt(event.pathParameters.id, 10), JSON.parse(event.body));
-        return new ProxyResultBuilder().status(200).body(response).build();
+        await this.tutorService.delete(event.pathParameters.id);
+        return new ProxyResultBuilder().status(204).build();
     }
 }
 
-export const handler: Handler = async (event, context, callback) => {
-    const response = await new TutorUpdateHandler().execute(event)
+export const handler: Handler = async (event, context, callback) =>{
+    const response = await new TutorRemoveHandler().execute(event);
     callback(null, response);
-};
+}

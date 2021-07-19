@@ -1,4 +1,5 @@
 import { createConnection, Connection } from 'typeorm';
+import __MODELS__ from './Models';
 import "reflect-metadata";
 
 export class Database {
@@ -16,9 +17,7 @@ export class Database {
             "database": "mentoring_db",
             "synchronize": true,
             "logging": false,
-            "entities": [
-            "src/models/*.ts"
-            ],
+            "entities": __MODELS__,
             "migrations": [
             "src/migration/*.ts"
             ],

@@ -1,12 +1,12 @@
-'use strict'
-
-const { resolve } = require('path')
-const { lib } = require('serverless-webpack')
+const { resolve } = require('path');
+const { lib } = require('serverless-webpack');
 
 module.exports = {
   devtool: 'source-map',
+  externals: { sqlite3: 'commonjs sqlite3' },
   entry: lib.entries,
   mode: 'development',
+  optimization: { minimize: false },
   module: {
     rules: [
       {
@@ -21,7 +21,7 @@ module.exports = {
     path: resolve(__dirname, 'dist'),
   },
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },
   target: 'node',
 }
